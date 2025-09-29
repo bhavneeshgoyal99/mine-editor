@@ -1,4 +1,4 @@
-# Advanced Text Editor
+# Mine Editor - Revolutonary text editor
 
 A feature-rich, modular text editor with extensive customization options for web applications.
 
@@ -21,4 +21,4 @@ A feature-rich, modular text editor with extensive customization options for web
 
 ### From GitHub (Development)
 ```bash
-npm install https://github.com/bhavneeshgoyal99/advanced-text-editor.git
+npm install https://github.com/bhavneeshgoyal99/mine-editor.git

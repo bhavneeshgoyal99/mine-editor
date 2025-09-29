@@ -1,5 +1,5 @@
 {
-  "name": "advanced-text-editor",
+  "name": "mine-editor",
   "version": "1.0.0",
   "description": "Advanced rich text editor with modules support",
   "main": "dist/editor.min.js",
