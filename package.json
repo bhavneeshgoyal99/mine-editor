@@ -1,0 +1,47 @@
+{
+  "name": "mine-editor",
+  "version": "1.0.0",
+  "description": "Advanced rich text editor with modules support",
+  "main": "dist/editor.min.js",
+  "style": "dist/editor.min.css",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
+    "serve": "webpack serve --mode=development",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "editor",
+    "rich-text-editor",
+    "wysiwyg",
+    "text-editor",
+    "javascript",
+    "html-editor"
+  ],
+  "author": "Hemant Kumar Saini",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhavneeshgoyal99/mine-editor.git"
+  },  
+  "bugs": {
+    "url": "https://github.com/bhavneeshgoyal99/mine-editor/issues"
+  },
+  "homepage": "https://github.com/bhavneeshgoyal99/mine-editor#readme",
+  "files": [
+    "dist/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.11.0",
+    "mini-css-extract-plugin": "^2.9.4",
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.2"
+  }
+}

@@ -1,0 +1,14 @@
+# .npmignore
+examples/
+node_modules/
+src/
+webpack.config.js
+.git/
+.gitignore
+*.log
+.DS_Store
+.env
+.vscode/
+.idea/
+
+# Keep only dist and essential files for npm
