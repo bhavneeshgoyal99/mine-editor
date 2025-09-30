@@ -1,19 +1,369 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mine Editor - Revolutonary text editor</title>
-    <link rel="stylesheet" href="mine-editor/editor.min.css">
+  <meta charset="utf-8" />
+  <title>MineEditor — Open Source, Pro‑grade Text Editing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="mine-editor/editor.min.css">
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --fg: #e6eef7;
+      --muted: #9fb3c8;
+      --brand1: #6ae3ff;
+      --brand2: #7a5cff;
+      --brand3: #0be6b6;
+      --card: #121823;
+      --glass: rgba(255,255,255,0.06);
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --radius: 14px;
+      --accent: linear-gradient(120deg, var(--brand1), var(--brand2) 40%, var(--brand3));
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(10px);
+      background: linear-gradient(180deg, rgba(10,14,20,0.9), rgba(10,14,20,0.4) 60%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .brand {
+      display: flex; gap: 12px; align-items: center;
+    }
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: conic-gradient(from 210deg at 50% 50%, var(--brand1), var(--brand2), var(--brand3));
+      box-shadow: 0 4px 16px rgba(122,92,255,0.35);
+      transform: rotate(8deg);
+    }
+    .brand h1 { margin: 0; font-size: 18px; letter-spacing: 0.2px; }
+    .navlinks { display: flex; gap: 18px; align-items: center; }
+    .navlinks a { color: var(--muted); font-size: 14px; opacity: 0.9; }
+    .navlinks a:hover { color: var(--fg); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 16px; border-radius: 12px;
+      background: var(--glass); border: 1px solid rgba(255,255,255,0.08); color: var(--fg);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      position: relative; overflow: hidden;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); }
+    .btn.primary {
+      background: var(--accent); color: #0b0f14; border: none;
+      box-shadow: 0 10px 24px rgba(122,92,255,0.35), inset 0 0 20px rgba(255,255,255,0.15);
+    }
+    .btn.ghost { color: var(--fg); }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Hero */
+    .hero {
+      position: relative; overflow: hidden; border-radius: 22px; padding: 56px 28px; margin-top: 20px;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(106,227,255,0.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(122,92,255,0.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+    }
+    .hero h2 {
+      font-size: clamp(28px, 4.5vw, 56px);
+      line-height: 1.05; margin: 0 0 14px;
+      background: var(--accent); -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .hero p { margin: 0 0 22px; color: var(--muted); font-size: clamp(15px, 1.8vw, 18px); }
+
+    /* Floating orbs */
+    .orb { position: absolute; filter: blur(40px); opacity: 0.5; pointer-events: none; mix-blend-mode: screen; }
+    .orb.one { width: 220px; height: 220px; background: #6ae3ff55; top: -20px; left: -20px; animation: float 12s ease-in-out infinite; }
+    .orb.two { width: 260px; height: 260px; background: #7a5cff44; bottom: -30px; right: -40px; animation: float 14s ease-in-out infinite reverse; }
+    @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-16px) } }
+
+    /* Sections */
+    section { margin: 56px 0; }
+    .grid {
+      display: grid; gap: 20px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card {
+      grid-column: span 12; padding: 20px; border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 20px; letter-spacing: 0.2px; }
+    .muted { color: var(--muted); }
+
+    /* Demo editor */
+    .toolbar {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px; border-radius: 12px; margin-bottom: 10px;
+    }
+    .tool {
+      padding: 8px 10px; border-radius: 10px; font-size: 13px; color: var(--fg);
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
+      transition: transform .1s ease, background .1s ease, border-color .1s ease;
+    }
+    .tool:hover { transform: translateY(-1px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); }
+    .editor {
+      min-height: 220px; padding: 14px; line-height: 1.6; font-size: 16px;
+      border-radius: 12px; background: rgba(11,15,20,0.4);
+      border: 1px dashed rgba(255,255,255,0.12);
+      outline: none;
+    }
+    .editor:focus { border-style: solid; border-color: rgba(122,92,255,0.6); }
+
+    /* Feature cards */
+    .features {
+      display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .feature {
+      padding: 18px; border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .feature:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.16); box-shadow: 0 14px 36px rgba(122,92,255,0.18); }
+    .chip {
+      display: inline-block; font-size: 12px; padding: 6px 10px; border-radius: 999px;
+      background: rgba(122,92,255,0.14); border: 1px solid rgba(122,92,255,0.35); color: #cfd4ff;
+      margin-bottom: 8px;
+    }
+
+    /* Reveal on scroll */
+    [data-reveal]{ opacity: 0; transform: translateY(16px) scale(0.98); transition: opacity .6s ease, transform .6s ease; }
+    [data-reveal].in { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* Footer */
+    /* footer { color: var(--muted); font-size: 13px; padding: 24px 0 40px; } */
+    footer {
+    text-align: center;
+    padding: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    }
+    footer a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 5px;
+    }
+    footer a:hover {
+    color: #6e5494; 
+    }
+
+ .install-box {
+    margin-top: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #2d2d2d;
+    font-family: monospace;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+  .install-box.open {
+    max-height: 200px; 
+    opacity: 1;
+  }
+
+  /* Header Bar */
+  .install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2d2f3a;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-family: sans-serif;
+  }
+  .install-header .title {
+    font-weight: 500;
+  }
+
+  /* Command Area */
+  .install-box pre {
+    margin: 0;
+    padding: 12px;
+    background: #3b3f4c;
+    color: #fff;
+    font-size: 15px;
+    white-space: pre-wrap;
+  }
+
+  /* Copy Button */
+  .copy-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Copy Message */
+  .copy-msg {
+    display: block;
+    padding: 4px 12px;
+    font-size: 13px;
+    color: limegreen;
+    background: #3b3f4c;
+  }
+
+    @media (min-width: 900px){
+      .hero { padding: 72px 56px; }
+      .card.span-7 { grid-column: span 7; }
+      .card.span-5 { grid-column: span 5; }
+    }
+  </style>
 </head>
 <body>
-    <div id="editor"></div>
-    
+  <header>
+    <div class="wrap nav">
+        <a class="brand" href="#">
+            <div class="logo"> </div>
+            <h1>MineEditor</h1>
+        </a>
+      <nav class="navlinks">
+        <a href="mineEditor.html">Demo</a>
+        <a class="btn ghost" href="https://github.com/bhavneeshgoyal99/mine-editor.git">Docs</a>
+        <a class="btn primary" href="https://github.com/bhavneeshgoyal99/mine-editor.git">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero" data-reveal>
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+      <h2>Create. Collaborate. Control.</h2>
+      <p>Open‑source text editing that feels premium—animations, performance, and a thoughtful API without the paywall.</p>
+      <div class="cta">
+        <a class="btn primary" href="mineEditor.html">Try the editor</a>
+        <a class="btn" href="#compare">See comparison</a>
+      </div>
+    </div>
+
+    <section id="demo" class="grid">
+      <div class="card span-7" data-reveal>
+        <h3>Editor demo</h3>
+        <p class="muted">Lightweight, client‑side demo using contenteditable to showcase formatting, headings, lists, and code.</p>
+        <div class="toolbar" role="toolbar" aria-label="Editor toolbar">
+            <div id="mineEditor"></div>
+        </div>
+      </div>
+
+      <div class="card span-5" data-reveal>
+        <h3>Highlights</h3>
+        <div class="features">
+          <div class="feature">
+            <div class="chip">Open source</div>
+            <p class="muted">Build freely with a transparent, community‑friendly core and modern API.</p>
+          </div>
+          <div class="feature">
+            <div class="chip">Feature‑rich</div>
+            <p class="muted">Designed to cover advanced use cases—tables, exports, and collaboration‑ready architecture.</p>
+          </div>
+          <div class="feature">
+            <div class="chip">Performance</div>
+            <p class="muted">GPU‑accelerated animations, smart lazy‑reveal, and minimal layout shift.</p>
+          </div>
+          <div class="feature">
+            <div class="chip">Accessible</div>
+            <p class="muted">Semantic controls, ARIA roles, and keyboard‑friendly interactions baked in.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare" class="card" data-reveal>
+      <h3>CKEditor & Quill: where we fit</h3>
+      <p class="muted">CKEditor offers rich collaboration and export features on paid plans, while Quill favors a modular core with advanced features via community modules or external services.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="chip">CKEditor</div>
+          <p class="muted">Enterprise‑grade collaboration, track changes, and exports—excellent but gated behind paid tiers for production scale.</p>
+        </div>
+        <div class="feature">
+          <div class="chip">Quill</div>
+          <p class="muted">Lean core with strong extensibility; advanced features like tables/collab typically added via third‑party modules/integrations.</p>
+        </div>
+        <div class="feature">
+          <div class="chip">MineEditor</div>
+          <p class="muted">Open‑source approach that targets breadth like CKEditor and convenience beyond Quill’s out‑of‑box feature set.</p>
+        </div>
+      </div>
+      <div class="cta" style="margin-top:12px;">
+        <a class="btn" href="#why">Why we’re better</a>
+        <a class="btn primary" href="#" id="installBtn">Install MineEditor</a>
+      </div>
+      <div id="installCmd" class="install-box">
+        <!-- Header -->
+        <div class="install-header">
+            <span class="title">💻 Terminal</span>
+            <button id="copyBtn" class="copy-btn">📋 Copy</button>
+        </div>
+
+        <!-- Command Body -->
+        <pre><code id="cmdText">npm install https://github.com/bhavneeshgoyal99/mine-editor.git</code></pre>
+        <span id="copyMsg" class="copy-msg"></span>
+      </div>
+    </section>
+
+    <section id="why" class="card" data-reveal>
+      <h3>Why we’re better</h3>
+      <ul class="muted" style="padding-left: 18px; line-height:1.8;">
+        <li>CKEditor can become costly at scale due to paid plans and metered editor loads and conversions, while MineEditor is open‑source by default.</li>
+        <li>Quill’s core omits advanced features like tables, track changes, and built‑in collaboration, which MineEditor is designed to include out of the box.</li>
+      </ul>
+      <div class="cta">
+        <a class="btn" href="https://github.com/bhavneeshgoyal99/mine-editor.git">Read the docs</a>
+        <a class="btn primary" href="https://github.com/bhavneeshgoyal99/mine-editor.git">Start building</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+        <small>
+            © MineEditor. Built for the modern web. 
+            | <a href="https://github.com/bhavneeshgoyal99/mine-editor.git" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+                    fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 .198a8 8 0 0 0-2.53 15.59c.4.074.547-.174.547-.388 
+                0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.925-.89-1.17-.89-1.17-.727-.497.055-.487.055-.487.804.056 
+                1.227.826 1.227.826.715 1.223 1.873.87 2.33.665.072-.517.28-.87.508-1.07-1.777-.2-3.644-.888-3.644-3.953 
+                0-.873.312-1.588.824-2.147-.083-.202-.357-1.016.078-2.118 
+                0 0 .672-.215 2.2.82a7.68 7.68 0 0 1 2-.268c.68.003 1.366.092 
+                2 .268 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.916.08 
+                2.118.513.559.823 1.274.823 2.147 
+                0 3.073-1.87 3.75-3.65 3.947.287.248.543.735.543 1.482 
+                0 1.07-.01 1.933-.01 2.197 
+                0 .215.146.465.55.386A8.001 8.001 0 0 0 8 .197z"/>
+                </svg>
+                GitHub
+            </a>
+        </small>
+    </footer>
     <script src="mine-editor/editor.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const editor = new AdvancedTextEditor('editor', {
-                height: '500px',
+            const editor = new AdvancedTextEditor('mineEditor', {
+                height: '300px',
                 modules: {
                     codeBlock: true,
                     findReplace: true,
@@ -21,9 +371,89 @@
                     emoji: true
                 }
             });
-            
-            // Test methods
-            console.log('Editor initialized');
+
+        });
+    </script>
+
+    <script>
+    const installBtn = document.getElementById("installBtn");
+    const installBox = document.getElementById("installCmd");
+    const copyBtn = document.getElementById("copyBtn");
+    const cmdText = document.getElementById("cmdText").innerText;
+    const copyMsg = document.getElementById("copyMsg");
+
+    // toggle show/hide terminal box
+    installBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        installBox.classList.toggle("open");
+    });
+
+    // copy functionality
+    copyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(cmdText).then(() => {
+        copyMsg.textContent = "✅ Copied!";
+        setTimeout(() => (copyMsg.textContent = ""), 2000);
+        });
+    });
+    </script>
+
+    <script>
+        // Reveal on scroll
+        const els = document.querySelectorAll('[data-reveal]');
+        const io = new IntersectionObserver((entries)=>{
+        entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+        }, { threshold: 0.2 });
+        els.forEach(el=>io.observe(el));
+
+        // Simple toolbar actions
+        const ed = document.getElementById('editor');
+        function surroundSelection(tag){
+        const sel = window.getSelection();
+        if(!sel || sel.rangeCount === 0) return;
+        const range = sel.getRangeAt(0);
+        const el = document.createElement(tag);
+        try{
+            range.surroundContents(el);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }catch{
+            // Fallback: wrap by insertion
+            const frag = range.extractContents();
+            el.appendChild(frag);
+            range.insertNode(el);
+        }
+        }
+        function applyList(ordered=false){
+        document.execCommand(ordered ? 'insertOrderedList' : 'insertUnorderedList');
+        }
+        function toggleInline(cmd){
+        document.execCommand(cmd);
+        }
+        function toggleBlock(kind){
+        if(kind === 'h2') surroundSelection('h2');
+        else if(kind === 'blockquote') surroundSelection('blockquote');
+        else if(kind === 'code'){
+            const sel = window.getSelection();
+            if(!sel || sel.rangeCount===0) return;
+            const r = sel.getRangeAt(0);
+            const pre = document.createElement('pre');
+            const code = document.createElement('code');
+            code.appendChild(r.extractContents());
+            pre.appendChild(code);
+            r.insertNode(pre);
+        }
+        }
+        function clearFormatting(){
+        document.execCommand('removeFormat');
+        }
+        document.querySelectorAll('.tool').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            ed.focus();
+            if(btn.dataset.cmd) toggleInline(btn.dataset.cmd);
+            if(btn.dataset.block) toggleBlock(btn.dataset.block);
+            if(btn.dataset.list) applyList(btn.dataset.list === 'ol');
+            if(btn.hasAttribute('data-clear')) clearFormatting();
+        });
         });
     </script>
 </body>

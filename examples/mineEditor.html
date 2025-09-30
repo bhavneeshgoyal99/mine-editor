@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MineEditor — Open Source, Pro‑grade Text Editing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="mine-editor/editor.min.css">
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --fg: #e6eef7;
+      --muted: #9fb3c8;
+      --brand1: #6ae3ff;
+      --brand2: #7a5cff;
+      --brand3: #0be6b6;
+      --card: #121823;
+      --glass: rgba(255,255,255,0.06);
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --radius: 14px;
+      --accent: linear-gradient(120deg, var(--brand1), var(--brand2) 40%, var(--brand3));
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(10px);
+      background: linear-gradient(180deg, rgba(10,14,20,0.9), rgba(10,14,20,0.4) 60%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .brand {
+      display: flex; gap: 12px; align-items: center;
+    }
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: conic-gradient(from 210deg at 50% 50%, var(--brand1), var(--brand2), var(--brand3));
+      box-shadow: 0 4px 16px rgba(122,92,255,0.35);
+      transform: rotate(8deg);
+    }
+    .brand h1 { margin: 0; font-size: 18px; letter-spacing: 0.2px; }
+    .navlinks { display: flex; gap: 18px; align-items: center; }
+    .navlinks a { color: var(--muted); font-size: 14px; opacity: 0.9; }
+    .navlinks a:hover { color: var(--fg); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 16px; border-radius: 12px;
+      background: var(--glass); border: 1px solid rgba(255,255,255,0.08); color: var(--fg);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      position: relative; overflow: hidden;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); }
+    .btn.primary {
+      background: var(--accent); color: #0b0f14; border: none;
+      box-shadow: 0 10px 24px rgba(122,92,255,0.35), inset 0 0 20px rgba(255,255,255,0.15);
+    }
+    .btn.ghost { color: var(--fg); }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Hero */
+    .hero {
+      position: relative; overflow: hidden; border-radius: 22px; padding: 56px 28px; margin-top: 20px;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(106,227,255,0.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(122,92,255,0.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+    }
+    .hero h2 {
+      font-size: clamp(28px, 4.5vw, 56px);
+      line-height: 1.05; margin: 0 0 14px;
+      background: var(--accent); -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .hero p { margin: 0 0 22px; color: var(--muted); font-size: clamp(15px, 1.8vw, 18px); }
+
+
+    /* Footer */
+    /* footer { color: var(--muted); font-size: 13px; padding: 24px 0 40px; } */
+
+    #mineEditor {
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #0b0f14;
+    }
+
+    footer {
+    text-align: center;
+    padding: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    }
+    footer a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 5px;
+    }
+    footer a:hover {
+    color: #6e5494; /* GitHub blue */
+    }
+
+   
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+        <a class="brand" href="index.html">
+            <div class="logo"> </div>
+            <h1>MineEditor</h1>
+        </a>
+     <nav class="navlinks">
+        <a href="mineEditor.html">Demo</a>
+        <a class="btn ghost" href="https://github.com/bhavneeshgoyal99/mine-editor.git">Docs</a>
+        <a class="btn primary" href="https://github.com/bhavneeshgoyal99/mine-editor.git">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="mineEditor"></div>
+  </main>
+
+    <footer class="wrap">
+        <small>
+            © MineEditor. Built for the modern web. 
+            | <a href="https://github.com/bhavneeshgoyal99/mine-editor.git" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+                    fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 .198a8 8 0 0 0-2.53 15.59c.4.074.547-.174.547-.388 
+                0-.19-.007-.693-.01-1.36-2.225.483-2.695-1.073-2.695-1.073-.364-.925-.89-1.17-.89-1.17-.727-.497.055-.487.055-.487.804.056 
+                1.227.826 1.227.826.715 1.223 1.873.87 2.33.665.072-.517.28-.87.508-1.07-1.777-.2-3.644-.888-3.644-3.953 
+                0-.873.312-1.588.824-2.147-.083-.202-.357-1.016.078-2.118 
+                0 0 .672-.215 2.2.82a7.68 7.68 0 0 1 2-.268c.68.003 1.366.092 
+                2 .268 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.916.08 
+                2.118.513.559.823 1.274.823 2.147 
+                0 3.073-1.87 3.75-3.65 3.947.287.248.543.735.543 1.482 
+                0 1.07-.01 1.933-.01 2.197 
+                0 .215.146.465.55.386A8.001 8.001 0 0 0 8 .197z"/>
+                </svg>
+                GitHub
+            </a>
+        </small>
+    </footer>
+    <script src="mine-editor/editor.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editor = new AdvancedTextEditor('mineEditor', {
+                height: '500px',
+                modules: {
+                    codeBlock: true,
+                    findReplace: true,
+                    table: true,
+                    emoji: true
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
