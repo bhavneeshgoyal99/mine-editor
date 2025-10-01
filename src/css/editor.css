@@ -1,9 +1,4 @@
 /* Basic styling for the editor */
-body {
-  background: #f7f8fa;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-}
-
 .editor-toolbar {
   display: flex;
   flex-wrap: wrap;

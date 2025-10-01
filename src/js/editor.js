@@ -1,5 +1,6 @@
 // src/js/editor.js
 import '../css/editor.css';
+import '../css/editor.theme.css';
 
 // Core modules
 import { initEditor } from './core/init.js';
@@ -30,7 +31,7 @@ class MineEditor {
         
         this.options = {
             height: '400px',
-            theme: 'default',
+            theme: 'light', // default to light
             placeholder: 'Start typing...',
             toolbar: true,
             modules: {
@@ -83,18 +84,18 @@ class MineEditor {
     initializeModules() {
         const moduleConfig = this.options.modules;
         
-        if (moduleConfig.codeBlock) {
-            this.modules.codeBlock = new CodeBlock(this);
-        }
+        // if (moduleConfig.codeBlock) {
+            // this.modules.codeBlock = new CodeBlock(this);
+        // }
         
-        if (moduleConfig.findReplace) {
-            this.modules.findReplace = new FindReplace(this);
-        }
+        // if (moduleConfig.findReplace) {
+        //     this.modules.findReplace = new FindReplace(this);
+        // }
         
-        if (moduleConfig.table) {
-            console.log("Initializing Table module");
-            this.modules.table = new Table(this);
-        }
+        // if (moduleConfig.table) {
+        //     console.log("Initializing Table module");
+        //     this.modules.table = new Table(this);
+        // }
         
         if (moduleConfig.horizontalLine) {
             this.modules.horizontalLine = new HorizontalLine(this);
@@ -155,16 +156,21 @@ class MineEditor {
     
     applyTheme() {
         if (this.options.theme && this.element) {
+            this.element.classList.remove('editor-theme-light', 'editor-theme-dark');
             this.element.classList.add(`editor-theme-${this.options.theme}`);
         }
-        
         if (this.options.height && this.editorElement) {
             this.editorElement.style.minHeight = this.options.height;
         }
-        
         if (this.options.placeholder && this.editorElement) {
             this.editorElement.setAttribute('data-placeholder', this.options.placeholder);
         }
+    }
+
+    setTheme(theme) {
+        if (theme !== 'light' && theme !== 'dark') return;
+        this.options.theme = theme;
+        this.applyTheme();
     }
     
     // Public API methods
