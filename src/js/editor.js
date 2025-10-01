@@ -23,7 +23,7 @@ import { PageBreak } from './modules/pageBreak.js';
 import { SpecialChar } from './modules/specialChar.js';
 import { Table } from './modules/table.js';
 
-class AdvancedTextEditor {
+class MineEditor {
     constructor(elementId, options = {}) {
         this.elementId = elementId;
         this.element = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
@@ -92,6 +92,7 @@ class AdvancedTextEditor {
         }
         
         if (moduleConfig.table) {
+            console.log("Initializing Table module");
             this.modules.table = new Table(this);
         }
         
@@ -280,11 +281,11 @@ class AdvancedTextEditor {
 
 // Export for different module systems
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = AdvancedTextEditor;
+    module.exports = MineEditor;
 } else if (typeof define === 'function' && define.amd) {
-    define(function() { return AdvancedTextEditor; });
+    define(function() { return MineEditor; });
 } else {
-    window.AdvancedTextEditor = AdvancedTextEditor;
+    window.MineEditor = MineEditor;
 }
 
-export default AdvancedTextEditor;
+export default MineEditor;

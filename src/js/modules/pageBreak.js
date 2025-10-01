@@ -1,4 +1,5 @@
 // Page break insertion
 export function PageBreak(editor) {
-  // Will insert a page break marker
+  document.execCommand('insertHTML', false, '<div style="page-break-after:always;"></div>');
+  editor.focus();
 }
