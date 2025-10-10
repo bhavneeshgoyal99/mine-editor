@@ -25,7 +25,13 @@ export function FindReplace(editor) {
   const findInput = dialog.querySelector('#find-text');
   const replaceInput = dialog.querySelector('#replace-text');
   const resultDiv = dialog.querySelector('#find-replace-result');
-  dialog.querySelector('#close-find-replace').onclick = () => dialog.remove();
+  dialog.querySelector('#close-find-replace').onclick = () => {
+    // Remove all <mark> tags from editor
+    if (editor && editor.innerHTML) {
+      editor.innerHTML = editor.innerHTML.replace(/<mark>(.*?)<\/mark>/gi, '$1');
+    }
+    dialog.remove();
+  };
   dialog.querySelector('#find-btn').onclick = () => {
     const text = findInput.value;
     if (!text) return;
