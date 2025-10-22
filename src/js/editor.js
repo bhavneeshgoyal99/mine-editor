@@ -239,6 +239,18 @@ class MineEditor {
         }
       }
     }
+
+    // Add EFW Calculator module
+    if (typeof this.toolbarElement !== "undefined") {
+      try {
+        const { initEFWCalculator } = require("./modules/efwCalculator.js");
+        initEFWCalculator(this.toolbarElement);
+      } catch (e) {
+        if (window.initEFWCalculator) {
+          window.initEFWCalculator(this.toolbarElement);
+        }
+      }
+    }
     
     // Add export HTML group
     if (typeof this.toolbarElement !== "undefined") {
