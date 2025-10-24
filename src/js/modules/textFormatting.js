@@ -145,11 +145,9 @@ export function initTextFormatting(toolbar) {
       picker.style.top = rect.bottom + 4 + "px";
     } else if (editor) {
       const rect = editor.getBoundingClientRect();
-      alert("Color picker openedhggfhfhffghgh", rect);
       picker.style.left = rect.left + "px";
       picker.style.top = rect.top + 10 + "px";
     } else {
-      alert("Color picker opened at center");
       picker.style.left = "50%";
       picker.style.top = "40px";
     }
