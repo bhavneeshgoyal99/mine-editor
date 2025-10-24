@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
       editor: './src/js/editor.js'
     },
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'examples/mine-editor'),
       filename: isProduction ? '[name].min.js' : '[name].js',
       library: 'AdvancedTextEditor',
       libraryTarget: 'umd',

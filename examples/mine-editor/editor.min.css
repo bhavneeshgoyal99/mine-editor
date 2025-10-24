@@ -1,9 +1,75 @@
-/* Basic styling for the editor */
-body {
-  background: #f7f8fa;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+/* Page break cross button */
+.editor-page-break-remove {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: none;
+  color: #888;
+  font-size: 18px;
+  line-height: 18px;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.15s;
 }
-
+.editor-page-break-remove:hover {
+  color: #e53e3e;
+}
+/* Visual and print page break marker */
+.editor-page-break {
+  border-top: 2px dashed #888;
+  margin: 18px 0;
+  position: relative;
+  text-align: center;
+  background: none;
+}
+.editor-page-break span {
+  background: #fff;
+  padding: 0 12px;
+  position: relative;
+  top: -12px;
+  color: #888;
+  font-size: 13px;
+}
+@media print {
+  .editor-page-break {
+    page-break-after: always;
+    border: none !important;
+    color: transparent !important;
+  }
+  .editor-page-break span {
+    display: none;
+  }
+}
+/* Floating table context menu */
+.table-context-menu {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 10px 14px;
+  z-index: 10010;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.table-context-menu button, .table-context-menu input[type="number"] {
+  margin: 2px 0;
+  font-size: 15px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
+  background: #f7f8fa;
+}
+.table-context-menu button:hover {
+  background: #e9eef6;
+  border-color: #b0b0b0;
+}
+/* Basic styling for the editor */
 .editor-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -65,6 +131,13 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   transition: border 0.15s;
 }
+
+.editor a {
+  color: #0074d9;
+  text-decoration: underline;
+  cursor: pointer;
+  pointer-events: auto;
+}
 .editor:focus {
   border-color: #60a5fa;
 }
@@ -103,3 +176,49 @@ img.resizable-image {
   display: unset !important;
   width: 30px;
 }
+/* Light Theme */
+.editor-theme-light .editor-toolbar {
+  background: #fff;
+  border-color: #e0e0e0;
+}
+.editor-theme-light .editor {
+  background: #fff;
+  color: #222;
+  border-color: #e0e0e0;
+}
+
+/* Dark Theme */
+.editor-theme-dark .editor-toolbar {
+  background: #23272f;
+  border-color: #23272f;
+}
+.editor-theme-dark .editor {
+  background: #181a20;
+  color: #e0e6f0;
+  border-color: #23272f;
+}
+.editor-theme-dark .editor-toolbar button,
+.editor-theme-dark .editor-toolbar select,
+.editor-theme-dark .editor-toolbar input[type="color"] {
+  background: #23272f;
+  color: #e0e6f0;
+  border-color: #353a45;
+}
+.editor-theme-dark .editor-toolbar button:hover,
+.editor-theme-dark .editor-toolbar select:hover,
+.editor-theme-dark .editor-toolbar input[type="color"]:hover {
+  background: #353a45;
+  border-color: #60a5fa;
+}
+.editor-theme-dark .editor-toolbar button:active,
+.editor-theme-dark .editor-toolbar button.active {
+  background: #1e293b;
+  border-color: #60a5fa;
+}
+.editor-theme-dark .toolbar-divider {
+  color: #888;
+}
+.editor-theme-dark img.resizable-image {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+

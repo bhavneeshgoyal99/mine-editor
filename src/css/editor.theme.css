@@ -1,0 +1,45 @@
+/* Light Theme */
+.editor-theme-light .editor-toolbar {
+  background: #fff;
+  border-color: #e0e0e0;
+}
+.editor-theme-light .editor {
+  background: #fff;
+  color: #222;
+  border-color: #e0e0e0;
+}
+
+/* Dark Theme */
+.editor-theme-dark .editor-toolbar {
+  background: #23272f;
+  border-color: #23272f;
+}
+.editor-theme-dark .editor {
+  background: #181a20;
+  color: #e0e6f0;
+  border-color: #23272f;
+}
+.editor-theme-dark .editor-toolbar button,
+.editor-theme-dark .editor-toolbar select,
+.editor-theme-dark .editor-toolbar input[type="color"] {
+  background: #23272f;
+  color: #e0e6f0;
+  border-color: #353a45;
+}
+.editor-theme-dark .editor-toolbar button:hover,
+.editor-theme-dark .editor-toolbar select:hover,
+.editor-theme-dark .editor-toolbar input[type="color"]:hover {
+  background: #353a45;
+  border-color: #60a5fa;
+}
+.editor-theme-dark .editor-toolbar button:active,
+.editor-theme-dark .editor-toolbar button.active {
+  background: #1e293b;
+  border-color: #60a5fa;
+}
+.editor-theme-dark .toolbar-divider {
+  color: #888;
+}
+.editor-theme-dark img.resizable-image {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
