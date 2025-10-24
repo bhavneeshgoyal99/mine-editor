@@ -1,8 +1,14 @@
 // Modular text formatting toolbar group
 export function initTextFormatting(toolbar) {
+    const iconStyle = `width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C274C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"`;
   // Alignment group
   toolbar.addButton({
-    icon: "B",
+    icon: `
+    <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 4h6a4 4 0 0 1 0 8H6z" />
+      <path d="M6 12h7a4 4 0 0 1 0 8H6z" />
+    </svg>
+  `,
     title: "Bold",
     onClick: (editor) => {
       document.execCommand("bold");
@@ -10,7 +16,13 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: "I",
+    icon: `
+    <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+      <line x1="10" y1="4" x2="14" y2="4" />
+      <line x1="10" y1="20" x2="14" y2="20" />
+      <line x1="12" y1="4" x2="10" y2="20" />
+    </svg>
+  `,
     title: "Italic",
     onClick: (editor) => {
       document.execCommand("italic");
@@ -18,7 +30,12 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: "U",
+   icon: `
+    <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 4v8a6 6 0 0 0 12 0V4" />
+      <line x1="4" y1="20" x2="20" y2="20" />
+    </svg>
+  `,
     title: "Underline",
     onClick: (editor) => {
       document.execCommand("underline");
@@ -26,7 +43,12 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: "S",
+    icon: `
+    <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 12h12" />
+      <path d="M6 4h12a4 4 0 0 1 0 8H6a4 4 0 0 0 0 8h12" />
+    </svg>
+  `,
     title: "Strikethrough",
     onClick: (editor) => {
       document.execCommand("strikeThrough");
@@ -85,7 +107,7 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: '<span style="background:#ff0;color:#000">A</span>',
+    icon: `<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fill-opacity="0.01"></rect> <path fill-rule="evenodd" clip-rule="evenodd" d="M37 37C39.2091 37 41 35.2091 41 33C41 31.5272 39.6667 29.5272 37 27C34.3333 29.5272 33 31.5272 33 33C33 35.2091 34.7909 37 37 37Z" fill="#000000"></path> <path d="M20.8535 5.50439L24.389 9.03993" stroke="#000000" stroke-width="4" stroke-linecap="round"></path> <path d="M23.6818 8.33281L8.12549 23.8892L19.4392 35.2029L34.9955 19.6465L23.6818 8.33281Z" stroke="#000000" stroke-width="4" stroke-linejoin="round"></path> <path d="M12 20.0732L28.961 25.6496" stroke="#000000" stroke-width="4" stroke-linecap="round"></path> <path d="M4 43H44" stroke="#000000" stroke-width="4" stroke-linecap="round"></path> </g></svg>`,
     title: "Background Color",
     onClick: (editor, _, event) => {
       showColorPicker("hiliteColor", editor, event);
@@ -93,7 +115,11 @@ export function initTextFormatting(toolbar) {
   });
   toolbar.addButton({ type: "divider" });
   toolbar.addButton({
-    icon: '<span style="display:inline-block;width:18px;text-align:left">L</span>',
+     icon: `
+      <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6H21M3 10H16M3 14H21M3 18H16" />
+      </svg>
+    `,
     title: "Align Left",
     onClick: (editor) => {
       document.execCommand("justifyLeft");
@@ -101,7 +127,11 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: '<span style="display:inline-block;width:18px;text-align:center">C</span>',
+    icon: `
+      <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6H21M6 10H18M3 14H21M6 18H18" />
+      </svg>
+    `,
     title: "Align Center",
     onClick: (editor) => {
       document.execCommand("justifyCenter");
@@ -109,7 +139,11 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: '<span style="display:inline-block;width:18px;text-align:right">R</span>',
+    icon: `
+      <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6H21M8 10H21M3 14H21M8 18H21" />
+      </svg>
+    `,
     title: "Align Right",
     onClick: (editor) => {
       document.execCommand("justifyRight");
@@ -117,7 +151,11 @@ export function initTextFormatting(toolbar) {
     },
   });
   toolbar.addButton({
-    icon: '<span style="display:inline-block;width:18px;text-align:justify">J</span>',
+    icon: `
+      <svg ${iconStyle} xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6H21M3 10H21M3 14H21M3 18H21" />
+      </svg>
+    `,
     title: "Justify",
     onClick: (editor) => {
       document.execCommand("justifyFull");
